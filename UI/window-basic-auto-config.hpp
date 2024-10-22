@@ -12,6 +12,7 @@
 #include <vector>
 #include <string>
 #include <mutex>
+#include <optional>
 
 class Ui_AutoConfigStartPage;
 class Ui_AutoConfigVideoPage;
@@ -39,6 +40,7 @@ class AutoConfig : public QWizard {
 	enum class Service {
 		Twitch,
 		YouTube,
+		AmazonIVS,
 		Other,
 	};
 
@@ -64,6 +66,11 @@ class AutoConfig : public QWizard {
 		fps60,
 	};
 
+	struct StreamServer {
+		std::string name;
+		std::string address;
+	};
+
 	static inline const char *GetEncoderId(Encoder enc);
 
 	AutoConfigStreamPage *streamPage = nullptr;
@@ -75,6 +82,11 @@ class AutoConfig : public QWizard {
 	Type type = Type::Streaming;
 	FPSType fpsType = FPSType::PreferHighFPS;
 	int idealBitrate = 2500;
+	struct {
+		std::optional<int> targetBitrate;
+		std::optional<int> bitrate;
+		bool testSuccessful = false;
+	} multitrackVideo;
 	int baseResolutionCX = 1920;
 	int baseResolutionCY = 1080;
 	int idealResolutionCX = 1280;
@@ -84,6 +96,7 @@ class AutoConfig : public QWizard {
 	std::string serviceName;
 	std::string serverName;
 	std::string server;
+	std::vector<StreamServer> serviceConfigServers;
 	std::string key;
 
 	bool hardwareEncodingAvailable = false;
@@ -95,8 +108,10 @@ class AutoConfig : public QWizard {
 	int startingBitrate = 2500;
 	bool customServer = false;
 	bool bandwidthTest = false;
+	bool testMultitrackVideo = false;
 	bool testRegions = true;
 	bool twitchAuto = false;
+	bool amazonIVSAuto = false;
 	bool regionUS = true;
 	bool regionEU = true;
 	bool regionAsia = true;
@@ -195,6 +210,7 @@ public slots:
 	void on_connectAccount_clicked();
 	void on_disconnectAccount_clicked();
 	void on_useStreamKey_clicked();
+	void on_preferHardware_clicked();
 	void ServiceChanged();
 	void UpdateKeyLink();
 	void UpdateMoreInfoLink();
@@ -250,11 +266,7 @@ class AutoConfigTestPage : public QWizardPage {
 
 		inline ServerInfo() {}
 
-		inline ServerInfo(const char *name_, const char *address_)
-			: name(name_),
-			  address(address_)
-		{
-		}
+		inline ServerInfo(const char *name_, const char *address_) : name(name_), address(address_) {}
 	};
 
 	void GetServers(std::vector<ServerInfo> &servers);

@@ -7,7 +7,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1079</width>
+    <width>1086</width>
     <height>729</height>
    </rect>
   </property>
@@ -69,6 +69,21 @@
            </sizepolicy>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>1</number>
+           </property>
+           <property name="topMargin">
+            <number>1</number>
+           </property>
+           <property name="rightMargin">
+            <number>1</number>
+           </property>
+           <property name="bottomMargin">
+            <number>1</number>
+           </property>
            <item>
             <spacer name="verticalSpacer_2">
              <property name="orientation">
@@ -152,53 +167,151 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="previewTextLayout">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="previewLabel">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>StudioMode.PreviewSceneName</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-            </property>
-            <property name="themeID" stdset="0">
-             <string>previewProgramLabels</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="OBSBasicPreview" name="preview">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-            <property name="focusPolicy">
-             <enum>Qt::ClickFocus</enum>
-            </property>
-            <property name="contextMenuPolicy">
-             <enum>Qt::CustomContextMenu</enum>
-            </property>
-            <addaction name="actionRemoveSource"/>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QWidget" name="previewContainer" native="true">
+          <layout class="QVBoxLayout" name="previewTextLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="previewLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>StudioMode.PreviewSceneName</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+             <property name="class" stdset="0">
+              <string>label-preview-title</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="gridLayout">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="1" column="0" colspan="2">
+              <widget class="OBSBasicPreview" name="preview" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::ClickFocus</enum>
+               </property>
+               <property name="contextMenuPolicy">
+                <enum>Qt::CustomContextMenu</enum>
+               </property>
+               <addaction name="actionRemoveSource"/>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QWidget" name="previewXContainer" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="OBSPreviewScalingLabel" name="previewScalePercent">
+                  <property name="text">
+                   <string>100%</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="OBSPreviewScalingComboBox" name="previewScalingMode">
+                  <item>
+                   <property name="text">
+                    <string>Basic.MainMenu.Edit.Scale.Window</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Basic.MainMenu.Edit.Scale.Canvas</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QScrollBar" name="previewXScrollBar">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimum">
+                   <number>-200</number>
+                  </property>
+                  <property name="maximum">
+                   <number>200</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>10</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>100</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QScrollBar" name="previewYScrollBar">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </item>
@@ -376,9 +489,6 @@
             <property name="flat">
              <bool>false</bool>
             </property>
-            <property name="themeID2" stdset="0">
-             <string notr="true">contextBarButton</string>
-            </property>
            </widget>
           </item>
           <item>
@@ -401,9 +511,6 @@
             </property>
             <property name="flat">
              <bool>false</bool>
-            </property>
-            <property name="themeID2" stdset="0">
-             <string notr="true">contextBarButton</string>
             </property>
            </widget>
           </item>
@@ -428,8 +535,8 @@
             <property name="flat">
              <bool>false</bool>
             </property>
-            <property name="themeID2" stdset="0">
-             <string notr="true">contextBarButton</string>
+            <property name="class" stdset="0">
+             <string notr="true">icon-touch</string>
             </property>
            </widget>
           </item>
@@ -486,8 +593,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1079</width>
-     <height>21</height>
+     <width>1086</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -664,6 +771,7 @@
     <addaction name="actionExportSceneCollection"/>
     <addaction name="separator"/>
     <addaction name="actionShowMissingFiles"/>
+    <addaction name="actionRemigrateSceneCollection"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="viewMenu">
@@ -676,6 +784,11 @@
      </property>
      <addaction name="actionSceneListMode"/>
      <addaction name="actionSceneGridMode"/>
+    </widget>
+    <widget class="QMenu" name="multiviewProjectorMenu">
+     <property name="title">
+      <string>MultiviewProjector</string>
+     </property>
     </widget>
     <action name="resetUI">
      <property name="text">
@@ -706,11 +819,6 @@
     <addaction name="separator"/>
     <addaction name="actionAlwaysOnTop"/>
    </widget>
-   <widget class="QMenu" name="multiviewProjectorMenu">
-    <property name="title">
-     <string>MultiviewProjector</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
      <string>Basic.MainMenu.Tools</string>
@@ -739,7 +847,7 @@
   <widget class="OBSBasicStatusBar" name="statusbar"/>
   <widget class="OBSDock" name="scenesDock">
    <property name="features">
-    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetFloatable</set>
+    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
     <string>Basic.Main.Scenes</string>
@@ -753,37 +861,19 @@
       <number>0</number>
      </property>
      <property name="leftMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="topMargin">
       <number>0</number>
      </property>
      <property name="rightMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="bottomMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <item>
       <widget class="QFrame" name="scenesFrame">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>160</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
        <layout class="QVBoxLayout" name="verticalLayout_12">
         <property name="spacing">
          <number>0</number>
@@ -808,9 +898,6 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="spacing">
-           <number>0</number>
-          </property>
           <property name="contextMenuPolicy">
            <enum>Qt::CustomContextMenu</enum>
           </property>
@@ -831,6 +918,9 @@
           </property>
           <property name="defaultDropAction">
            <enum>Qt::TargetMoveAction</enum>
+          </property>
+          <property name="spacing">
+           <number>0</number>
           </property>
           <addaction name="actionRemoveScene"/>
          </widget>
@@ -879,7 +969,7 @@
   </widget>
   <widget class="OBSDock" name="sourcesDock">
    <property name="features">
-    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetFloatable</set>
+    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
     <string>Basic.Main.Sources</string>
@@ -893,37 +983,19 @@
       <number>0</number>
      </property>
      <property name="leftMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="topMargin">
       <number>0</number>
      </property>
      <property name="rightMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="bottomMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <item>
       <widget class="QFrame" name="sourcesFrame">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>160</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
        <layout class="QVBoxLayout" name="verticalLayout_17">
         <property name="spacing">
          <number>0</number>
@@ -948,9 +1020,6 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="spacing">
-           <number>0</number>
-          </property>
           <property name="contextMenuPolicy">
            <enum>Qt::CustomContextMenu</enum>
           </property>
@@ -971,6 +1040,9 @@
           </property>
           <property name="selectionMode">
            <enum>QAbstractItemView::ExtendedSelection</enum>
+          </property>
+          <property name="spacing">
+           <number>0</number>
           </property>
           <addaction name="actionRemoveSource"/>
          </widget>
@@ -1019,7 +1091,7 @@
   </widget>
   <widget class="OBSDock" name="mixerDock">
    <property name="features">
-    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetFloatable</set>
+    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
     <string>Mixer</string>
@@ -1033,25 +1105,19 @@
       <number>0</number>
      </property>
      <property name="leftMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="topMargin">
       <number>0</number>
      </property>
      <property name="rightMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="bottomMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <item>
       <widget class="QFrame" name="mixerFrame">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <property name="spacing">
          <number>0</number>
@@ -1075,10 +1141,10 @@
             <enum>Qt::CustomContextMenu</enum>
            </property>
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::NoFrame</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
+            <enum>QFrame::Plain</enum>
            </property>
            <property name="verticalScrollBarPolicy">
             <enum>Qt::ScrollBarAsNeeded</enum>
@@ -1094,7 +1160,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>74</width>
+              <width>225</width>
               <height>16</height>
              </rect>
             </property>
@@ -1128,10 +1194,10 @@
             <enum>Qt::CustomContextMenu</enum>
            </property>
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::NoFrame</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
+            <enum>QFrame::Plain</enum>
            </property>
            <property name="verticalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -1148,7 +1214,7 @@
               <x>0</x>
               <y>0</y>
               <width>16</width>
-              <height>28</height>
+              <height>192</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -1202,7 +1268,7 @@
   </widget>
   <widget class="OBSDock" name="transitionsDock">
    <property name="features">
-    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetFloatable</set>
+    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
     <string>Basic.SceneTransitions</string>
@@ -1216,40 +1282,34 @@
       <number>0</number>
      </property>
      <property name="leftMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="topMargin">
       <number>0</number>
      </property>
      <property name="rightMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="bottomMargin">
-      <number>0</number>
+      <number>1</number>
      </property>
      <item>
       <widget class="QFrame" name="transitionsFrame">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <property name="spacing">
-         <number>2</number>
+         <number>0</number>
         </property>
         <property name="leftMargin">
-         <number>4</number>
+         <number>0</number>
         </property>
         <property name="topMargin">
-         <number>4</number>
+         <number>0</number>
         </property>
         <property name="rightMargin">
-         <number>4</number>
+         <number>0</number>
         </property>
         <property name="bottomMargin">
-         <number>4</number>
+         <number>0</number>
         </property>
         <item>
          <widget class="QComboBox" name="transitions">
@@ -1348,17 +1408,14 @@
              <string notr="true"/>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="obs.qrc">
               <normaloff>:/res/images/plus.svg</normaloff>:/res/images/plus.svg</iconset>
             </property>
             <property name="flat">
              <bool>false</bool>
             </property>
-            <property name="themeID" stdset="0">
-             <string notr="true">addIconSmall</string>
-            </property>
-            <property name="toolButton" stdset="0">
-             <bool>true</bool>
+            <property name="class" stdset="0">
+             <string notr="true">btn-tool icon-plus</string>
             </property>
            </widget>
           </item>
@@ -1380,17 +1437,14 @@
              <string notr="true"/>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="obs.qrc">
               <normaloff>:/res/images/minus.svg</normaloff>:/res/images/minus.svg</iconset>
             </property>
             <property name="flat">
              <bool>false</bool>
             </property>
-            <property name="themeID" stdset="0">
-             <string notr="true">removeIconSmall</string>
-            </property>
-            <property name="toolButton" stdset="0">
-             <bool>true</bool>
+            <property name="class" stdset="0">
+             <string notr="true">btn-tool icon-trash</string>
             </property>
            </widget>
           </item>
@@ -1412,17 +1466,14 @@
              <string notr="true"/>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="obs.qrc">
               <normaloff>:/settings/images/settings/general.svg</normaloff>:/settings/images/settings/general.svg</iconset>
             </property>
             <property name="flat">
              <bool>false</bool>
             </property>
-            <property name="themeID" stdset="0">
-             <string notr="true">menuIconSmall</string>
-            </property>
-            <property name="toolButton" stdset="0">
-             <string notr="true">true</string>
+            <property name="class" stdset="0">
+             <string notr="true">btn-tool icon-dots-vert</string>
             </property>
            </widget>
           </item>
@@ -1447,210 +1498,9 @@
     </layout>
    </widget>
   </widget>
-  <widget class="OBSDock" name="controlsDock">
-   <property name="features">
-    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetFloatable</set>
-   </property>
-   <property name="windowTitle">
-    <string>Basic.Main.Controls</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>8</number>
-   </attribute>
-   <widget class="QWidget" name="controlsDockContents">
-    <layout class="QVBoxLayout" name="buttonsVLayout">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <property name="leftMargin">
-      <number>4</number>
-     </property>
-     <property name="topMargin">
-      <number>4</number>
-     </property>
-     <property name="rightMargin">
-      <number>4</number>
-     </property>
-     <property name="bottomMargin">
-      <number>4</number>
-     </property>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <widget class="QPushButton" name="streamButton">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Basic.Main.StartStreaming</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="broadcastButton">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Basic.Main.StartBroadcast</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="recordingLayout">
-       <property name="spacing">
-        <number>2</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="RecordButton" name="recordButton">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Basic.Main.StartRecording</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="modeSwitch">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Basic.TogglePreviewProgramMode</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="settingsButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Settings</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="exitButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Exit</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="expVSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </widget>
-  </widget>
   <action name="actionAddScene">
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/res/images/plus.svg</normaloff>:/res/images/plus.svg</iconset>
    </property>
    <property name="text">
@@ -1659,13 +1509,13 @@
    <property name="toolTip">
     <string>Basic.Main.AddSceneDlg.Title</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">addIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-plus</string>
    </property>
   </action>
   <action name="actionAddSource">
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/res/images/plus.svg</normaloff>:/res/images/plus.svg</iconset>
    </property>
    <property name="text">
@@ -1674,13 +1524,13 @@
    <property name="toolTip">
     <string>AddSource</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">addIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-plus</string>
    </property>
   </action>
   <action name="actionRemoveScene">
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/res/images/minus.svg</normaloff>:/res/images/minus.svg</iconset>
    </property>
    <property name="text">
@@ -1698,13 +1548,13 @@
    <property name="iconVisibleInMenu">
     <bool>false</bool>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">removeIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-trash</string>
    </property>
   </action>
   <action name="actionRemoveSource">
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/res/images/minus.svg</normaloff>:/res/images/minus.svg</iconset>
    </property>
    <property name="text">
@@ -1722,8 +1572,8 @@
    <property name="iconVisibleInMenu">
     <bool>false</bool>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">removeIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-trash</string>
    </property>
   </action>
   <action name="actionSourceProperties">
@@ -1731,7 +1581,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/settings/images/settings/general.svg</normaloff>:/settings/images/settings/general.svg</iconset>
    </property>
    <property name="text">
@@ -1740,13 +1590,13 @@
    <property name="toolTip">
     <string>SourceProperties</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">propertiesIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-gear</string>
    </property>
   </action>
   <action name="actionSceneUp">
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/res/images/up.svg</normaloff>:/res/images/up.svg</iconset>
    </property>
    <property name="text">
@@ -1755,8 +1605,8 @@
    <property name="toolTip">
     <string>MoveSceneUp</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">upArrowIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-up</string>
    </property>
   </action>
   <action name="actionSourceUp">
@@ -1764,7 +1614,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/res/images/up.svg</normaloff>:/res/images/up.svg</iconset>
    </property>
    <property name="text">
@@ -1773,13 +1623,13 @@
    <property name="toolTip">
     <string>MoveSourceUp</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">upArrowIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-up</string>
    </property>
   </action>
   <action name="actionSceneDown">
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/res/images/down.svg</normaloff>:/res/images/down.svg</iconset>
    </property>
    <property name="text">
@@ -1788,8 +1638,8 @@
    <property name="toolTip">
     <string>MoveSceneDown</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">downArrowIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-down</string>
    </property>
   </action>
   <action name="actionSourceDown">
@@ -1797,7 +1647,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="obs.qrc">
      <normaloff>:/res/images/down.svg</normaloff>:/res/images/down.svg</iconset>
    </property>
    <property name="text">
@@ -1806,8 +1656,8 @@
    <property name="toolTip">
     <string>MoveSourceDown</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string notr="true">downArrowIconSmall</string>
+   <property name="class" stdset="0">
+    <string notr="true">icon-down</string>
    </property>
   </action>
   <action name="actionShow_Recordings">
@@ -2013,11 +1863,11 @@
    </property>
   </action>
   <action name="actionReleaseNotes">
-   <property name="visible">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Basic.MainMenu.Help.ReleaseNotes</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionInteract">
@@ -2068,6 +1918,11 @@
   <action name="actionShowMissingFiles">
    <property name="text">
     <string>Basic.MainMenu.File.ShowMissingFiles</string>
+   </property>
+  </action>
+  <action name="actionRemigrateSceneCollection">
+   <property name="text">
+    <string>Basic.MainMenu.SceneCollection.Remigrate</string>
    </property>
   </action>
   <action name="actionNewProfile">
@@ -2311,8 +2166,8 @@
    <property name="toolTip">
     <string>Basic.AdvAudio</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string>cogsIcon</string>
+   <property name="class" stdset="0">
+    <string>icon-cogs</string>
    </property>
   </action>
   <action name="actionMixerToolbarMenu">
@@ -2323,8 +2178,8 @@
    <property name="text">
     <string>MixerToolbarMenu</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string>menuIconSmall</string>
+   <property name="class" stdset="0">
+    <string>icon-dots-vert</string>
    </property>
   </action>
   <action name="actionSceneFilters">
@@ -2338,8 +2193,8 @@
    <property name="toolTip">
     <string>SceneFilters</string>
    </property>
-   <property name="themeID" stdset="0">
-    <string>filtersIcon</string>
+   <property name="class" stdset="0">
+    <string>icon-filter</string>
    </property>
   </action>
   <action name="actionSceneGridMode">
@@ -2400,9 +2255,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>RecordButton</class>
-   <extends>QPushButton</extends>
-   <header>record-button.hpp</header>
+   <class>OBSPreviewScalingLabel</class>
+   <extends>QLabel</extends>
+   <header>preview-controls.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>OBSPreviewScalingComboBox</class>
+   <extends>QComboBox</extends>
+   <header>preview-controls.hpp</header>
   </customwidget>
  </customwidgets>
  <resources>
@@ -2422,22 +2282,6 @@
     <hint type="destinationlabel">
      <x>463</x>
      <y>351</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>exitButton</sender>
-   <signal>clicked()</signal>
-   <receiver>OBSBasic</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>976</x>
-     <y>601</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>862</x>
-     <y>-11</y>
     </hint>
    </hints>
   </connection>

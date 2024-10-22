@@ -29,11 +29,11 @@ jobs:
   compatibility-validation:
     name: Validate Compatibility 🕵️
     if: github.base_ref == 'master'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -51,11 +51,11 @@ jobs:
   services-validation:
     name: Validate Services 🕵️
     if: github.base_ref == 'master'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -77,9 +77,9 @@ jobs:
   update-documentation:
     name: Update Documentation 📖
     if: github.repository_owner == 'obsproject' && github.base_ref == 'master'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 

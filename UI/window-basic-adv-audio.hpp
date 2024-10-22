@@ -14,8 +14,7 @@ class OBSBasicAdvAudio : public QDialog {
 	Q_OBJECT
 
 private:
-	OBSSignal sourceAddedSignal;
-	OBSSignal sourceRemovedSignal;
+	std::vector<OBSSignal> sigs;
 	bool showInactive;
 	bool showVisible;
 
@@ -27,6 +26,7 @@ private:
 
 	static void OBSSourceAdded(void *param, calldata_t *calldata);
 	static void OBSSourceRemoved(void *param, calldata_t *calldata);
+	static void OBSSourceActivated(void *param, calldata_t *calldata);
 
 	std::unique_ptr<Ui_OBSAdvAudio> ui;
 

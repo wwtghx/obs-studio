@@ -8,9 +8,7 @@
 using namespace std;
 
 #if 0
-#define debugfunc(format, ...)                                     \
-	blog(LOG_DEBUG, "[Captions] %s(" format ")", __FUNCTION__, \
-	     ##__VA_ARGS__)
+#define debugfunc(format, ...) blog(LOG_DEBUG, "[Captions] %s(" format ")", __FUNCTION__, ##__VA_ARGS__)
 #else
 #define debugfunc(format, ...)
 #endif
@@ -37,7 +35,7 @@ void CaptionStream::Stop()
 {
 	{
 		lock_guard<mutex> lock(m);
-		circlebuf_free(buf);
+		deque_free(buf);
 	}
 
 	cv.notify_one();
@@ -48,7 +46,7 @@ void CaptionStream::PushAudio(const void *data, size_t frames)
 	bool ready = false;
 
 	lock_guard<mutex> lock(m);
-	circlebuf_push_back(buf, data, frames * sizeof(int16_t));
+	deque_push_back(buf, data, frames * sizeof(int16_t));
 	write_pos += frames * sizeof(int16_t);
 
 	if (wait_size && buf->size >= wait_size)
@@ -126,7 +124,7 @@ STDMETHODIMP CaptionStream::Read(void *data, ULONG bytes, ULONG *read_bytes)
 		hr = S_FALSE;
 	}
 	if (bytes)
-		circlebuf_pop_front(buf, data, bytes);
+		deque_pop_front(buf, data, bytes);
 	if (read_bytes)
 		*read_bytes = bytes;
 
@@ -144,8 +142,7 @@ STDMETHODIMP CaptionStream::Write(const void *, ULONG bytes, ULONG *)
 
 // IStream methods
 
-STDMETHODIMP CaptionStream::Seek(LARGE_INTEGER move, DWORD origin,
-				 ULARGE_INTEGER *new_pos)
+STDMETHODIMP CaptionStream::Seek(LARGE_INTEGER move, DWORD origin, ULARGE_INTEGER *new_pos)
 {
 	debugfunc("%lld, %lx, new_pos", move, origin);
 
@@ -165,8 +162,7 @@ STDMETHODIMP CaptionStream::SetSize(ULARGE_INTEGER new_size)
 	return STG_E_INVALIDFUNCTION;
 }
 
-STDMETHODIMP CaptionStream::CopyTo(IStream *stream, ULARGE_INTEGER bytes,
-				   ULARGE_INTEGER *read_bytes,
+STDMETHODIMP CaptionStream::CopyTo(IStream *stream, ULARGE_INTEGER bytes, ULARGE_INTEGER *read_bytes,
 				   ULARGE_INTEGER *written_bytes)
 {
 	HRESULT hr;
@@ -182,7 +178,7 @@ STDMETHODIMP CaptionStream::CopyTo(IStream *stream, ULARGE_INTEGER bytes,
 
 	lock_guard<mutex> lock(m);
 	temp_buf.resize((size_t)bytes.QuadPart);
-	circlebuf_peek_front(buf, &temp_buf[0], (size_t)bytes.QuadPart);
+	deque_peek_front(buf, &temp_buf[0], (size_t)bytes.QuadPart);
 
 	hr = stream->Write(temp_buf.data(), (ULONG)bytes.QuadPart, &written);
 
@@ -207,16 +203,14 @@ STDMETHODIMP CaptionStream::Revert(void)
 	return S_OK;
 }
 
-STDMETHODIMP CaptionStream::LockRegion(ULARGE_INTEGER offset,
-				       ULARGE_INTEGER size, DWORD type)
+STDMETHODIMP CaptionStream::LockRegion(ULARGE_INTEGER offset, ULARGE_INTEGER size, DWORD type)
 {
 	debugfunc("%llu, %llu, %ld", offset, size, type);
 	/* TODO? */
 	return STG_E_INVALIDFUNCTION;
 }
 
-STDMETHODIMP CaptionStream::UnlockRegion(ULARGE_INTEGER offset,
-					 ULARGE_INTEGER size, DWORD type)
+STDMETHODIMP CaptionStream::UnlockRegion(ULARGE_INTEGER offset, ULARGE_INTEGER size, DWORD type)
 {
 	debugfunc("%llu, %llu, %ld", offset, size, type);
 	/* TODO? */
@@ -255,8 +249,7 @@ STDMETHODIMP CaptionStream::Clone(IStream **stream)
 
 // ISpStreamFormat methods
 
-STDMETHODIMP CaptionStream::GetFormat(GUID *guid,
-				      WAVEFORMATEX **co_mem_wfex_out)
+STDMETHODIMP CaptionStream::GetFormat(GUID *guid, WAVEFORMATEX **co_mem_wfex_out)
 {
 	debugfunc("guid, co_mem_wfex_out");
 
@@ -284,8 +277,7 @@ STDMETHODIMP CaptionStream::SetState(SPAUDIOSTATE state_, ULONGLONG)
 	return S_OK;
 }
 
-STDMETHODIMP CaptionStream::SetFormat(REFGUID guid_ref,
-				      const WAVEFORMATEX *wfex)
+STDMETHODIMP CaptionStream::SetFormat(REFGUID guid_ref, const WAVEFORMATEX *wfex)
 {
 	debugfunc("guid, wfex");
 	if (!wfex)
@@ -294,14 +286,13 @@ STDMETHODIMP CaptionStream::SetFormat(REFGUID guid_ref,
 	if (guid_ref == SPDFID_WaveFormatEx) {
 		lock_guard<mutex> lock(m);
 		memcpy(&format, wfex, sizeof(format));
-		if (!handler->reset_resampler(AUDIO_FORMAT_16BIT,
-					      wfex->nSamplesPerSec))
+		if (!handler->reset_resampler(AUDIO_FORMAT_16BIT, wfex->nSamplesPerSec))
 			return E_FAIL;
 
 		/* 50 msec */
 		DWORD size = format.nSamplesPerSec / 20;
 		DWORD byte_size = size * format.nBlockAlign;
-		circlebuf_reserve(buf, (size_t)byte_size);
+		deque_reserve(buf, (size_t)byte_size);
 	}
 	return S_OK;
 }
@@ -342,8 +333,7 @@ STDMETHODIMP CaptionStream::GetBufferInfo(SPAUDIOBUFFERINFO *buf_info_)
 	return S_OK;
 }
 
-STDMETHODIMP CaptionStream::GetDefaultFormat(GUID *format,
-					     WAVEFORMATEX **co_mem_wfex_out)
+STDMETHODIMP CaptionStream::GetDefaultFormat(GUID *format, WAVEFORMATEX **co_mem_wfex_out)
 {
 	debugfunc("format, co_mem_wfex_out");
 

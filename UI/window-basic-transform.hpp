@@ -17,21 +17,15 @@ private:
 	OBSBasic *main;
 	OBSSceneItem item;
 	OBSSignal channelChangedSignal;
-	OBSSignal transformSignal;
-	OBSSignal removeSignal;
-	OBSSignal selectSignal;
-	OBSSignal deselectSignal;
-	OBSSignal lockSignal;
+	std::vector<OBSSignal> sigs;
 
 	std::string undo_data;
 
 	bool ignoreTransformSignal = false;
 	bool ignoreItemChange = false;
 
-	template<typename Widget, typename WidgetParent, typename... SignalArgs,
-		 typename... SlotArgs>
-	void HookWidget(Widget *widget,
-			void (WidgetParent::*signal)(SignalArgs...),
+	template<typename Widget, typename WidgetParent, typename... SignalArgs, typename... SlotArgs>
+	void HookWidget(Widget *widget, void (WidgetParent::*signal)(SignalArgs...),
 			void (OBSBasicTransform::*slot)(SlotArgs...))
 	{
 		QObject::connect(widget, signal, this, slot);

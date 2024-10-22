@@ -13,8 +13,6 @@ class BrowserDock;
 class TwitchAuth : public OAuthStreamKey {
 	Q_OBJECT
 
-	friend class TwitchLogin;
-
 	bool uiLoaded = false;
 
 	std::string name;
@@ -34,8 +32,7 @@ public:
 	TwitchAuth(const Def &d);
 	~TwitchAuth();
 
-	static std::shared_ptr<Auth> Login(QWidget *parent,
-					   const std::string &service_name);
+	static std::shared_ptr<Auth> Login(QWidget *parent, const std::string &service_name);
 
 	QTimer uiLoadTimer;
 
